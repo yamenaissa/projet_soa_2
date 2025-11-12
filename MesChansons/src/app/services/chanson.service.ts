@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Album } from '../model/album.model';
 import { environment } from '../../environments/environment';
 import { AlbumWrapper } from '../model/albumWrapped.model';
+import { AuthService } from './auth.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -18,30 +19,31 @@ export class ChansonService {
 
   chansons: Chanson[] = [];
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private authService: AuthService) {
     console.log('Environment:', environment);
   }
 
   listeChansons(): Observable<Chanson[]> {
-    return this.http.get<Chanson[]>(environment.apiURL);
+    return this.http.get<Chanson[]>(environment.apiURL + '/all');
   }
 
   ajouterChanson(chans: Chanson): Observable<Chanson> {
-    return this.http.post<Chanson>(environment.apiURL, chans, httpOptions);
+    return this.http.post<Chanson>(environment.apiURL + '/addchans', chans);
   }
 
   supprimerChanson(id: number) {
-    const url = `${environment.apiURL}/${id}`;
-    return this.http.delete(url, httpOptions);
+    const url = `${environment.apiURL}/delchans/${id}`;
+    return this.http.delete(url);
   }
 
   consulterChanson(id: number): Observable<Chanson> {
-    const url = `${environment.apiURL}/${id}`;
+    const url = `${environment.apiURL}/getbyid/${id}`;
+
     return this.http.get<Chanson>(url);
   }
 
   updateChanson(chans: Chanson): Observable<Chanson> {
-    return this.http.put<Chanson>(environment.apiURL, chans, httpOptions);
+    return this.http.put<Chanson>(environment.apiURL + '/updatechans', chans);
   }
 
   listeAlbums(): Observable<AlbumWrapper> {
@@ -54,7 +56,8 @@ export class ChansonService {
   }
 
   rechercherParNom(nom: string): Observable<Chanson[]> {
-    return this.http.get<Chanson[]>(`${environment.apiURL}/chansByName/${nom}`);
+    const url = `${environment.apiURL}/chansByName/${nom}`;
+    return this.http.get<Chanson[]>(url);
   }
 
   ajouterAlbum(alb: Album): Observable<Album> {
