@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <table class="table table-striped">
+        @if(chansons.length != 0) {
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Nom</th>
+            <th>Duree</th>
+            <th>Date Sortie</th>
+            <th>Album</th>
+          </tr>
+        </thead>}
+
+        @for (chanson of chansons; track chanson.idChanson)  {
+        <tbody>
+          <tr>
+            <td>{{ chanson.idChanson }}</td>
+            <td>{{ chanson.titreChanson }}</td>
+            <td>{{ chanson.duree }}</td>
+            <td>{{ chanson.dateSortie | date : "dd/MM/yyyy" }}</td>
+            @if(chanson.album)  {
+              <td>{{ chanson.album.nomAlb }}</td>} 
+            @else {
+              <td>Sans Album</td>}
+            @if(authService.isAdmin())  {
+            <td><a class="btn btn-danger" (click)="supprimerChanson(chanson)">Supprimer</a></td> 
+            <td><a class="btn btn-success" [routerLink]="['/updateChanson',chanson.idChanson]">Modifier</a></td> }
+          </tr>
+        </tbody>
+        } @empty {
+        <h1>Aucun chanson trouvé !</h1>
+        }
+      </table>
+    </div>
+  </div>
+</div>
