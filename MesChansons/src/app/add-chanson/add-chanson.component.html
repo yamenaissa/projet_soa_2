@@ -1,0 +1,62 @@
+<div class="container">
+  <div>
+    <h2>Ajouter une Chanson :</h2>
+  </div>
+  <form>
+    <div hidden class="col-sm-2 col-md-2 col-lg-2">
+      <label>ID Chanson</label>
+      <input
+        type="text"
+        [(ngModel)]="newChanson.idChanson"
+        name="idChanson"
+        class="form-control"
+      />
+    </div>
+
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Titre Chanson</label>
+      <input
+        type="text"
+        [(ngModel)]="newChanson.titreChanson"
+        name="titreChanson"
+        class="form-control"
+      />
+    </div>
+    <div class="col-sm-2 col-md-2 col-lg-2">
+      <label>Duree Chanson</label>
+      <input
+        type="number"
+        [(ngModel)]="newChanson.duree"
+        name="duree"
+        class="form-control"
+      />
+    </div>
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Date sortie</label>
+      <input
+        type="date"
+        [(ngModel)]="newChanson.dateSortie"
+        name="dateSortie"
+        class="form-control"
+      />
+    </div>
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Album</label>
+      <select
+        class="form-control form-control-lg"
+        id="idAlb"
+        name="idAlb"
+        [(ngModel)]="newIdAlb"
+      >
+        @for(alb of albums; track alb.idAlb){
+        <option [value]="alb.idAlb">{{ alb.nomAlb }}</option>
+        }
+      </select>
+    </div>
+    <div class="mt-2">
+      <button type="submit" (click)="addChanson()" class="btn btn-success">
+        Ajouter
+      </button>
+    </div>
+  </form>
+</div>

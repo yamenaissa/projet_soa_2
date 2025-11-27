@@ -1,0 +1,47 @@
+<div class="container">
+  <form class="form-inline">
+    <div class="form-group mx-sm-3 mb-2 mt-2">
+      <label>Nom Chanson en tapant</label>
+      <input
+        #nom
+        [(ngModel)]="searchTerm"
+        name="searchTerm"
+        class="form-control"
+      />
+    </div>
+  </form>
+
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Nom</th>
+            <th>Duree</th>
+            <th>Date Sortie</th>
+            <th>Album</th>
+          </tr>
+        </thead>
+
+        @for (chanson of chansons| searchFilter: searchTerm; track chanson.idChanson) {
+        <tbody>
+          <tr>
+            <td>{{ chanson.idChanson }}</td>
+            <td>{{ chanson.titreChanson }}</td>
+            <td>{{ chanson.duree }}</td>
+            <td>{{ chanson.dateSortie | date : "dd/MM/yyyy" }}</td>
+            @if(chanson.album) {
+            <td>{{ chanson.album.nomAlb }}</td>
+            } @else {
+            <td>Sans Album</td>
+            }
+            <!-- <td><a class="btn btn-danger" (click)="supprimerChanson(chanson)">Supprimer</a></td> 
+            <td><a class="btn btn-success" [routerLink]="['/updateChanson',chanson.idChanson]">Modifier</a></td>  -->
+          </tr>
+        </tbody>
+        }
+      </table>
+    </div>
+  </div>
+</div>

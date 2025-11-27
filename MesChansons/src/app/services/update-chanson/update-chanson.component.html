@@ -1,0 +1,70 @@
+<div class="container">
+  <div>
+    <h2>Modifier une chanson :</h2>
+    <!-- METTEZ ÇA JUSTE APRÈS <h2> -->
+<div class="alert alert-info">
+  <p>Nombre d'albums: {{ albums.length || 0 }}</p>
+  <p>ID sélectionné: {{ updatedAlbId }}</p>
+</div>
+  </div>
+  <form>
+    <div class="col-sm-2 col-md-2 col-lg-2">
+      <label>ID chanson</label>
+      <input
+        readonly
+        type="text"
+        [(ngModel)]="currentChanson.idChanson"
+        name="idChanson"
+        class="form-control"
+      />
+    </div>
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Titre chanson</label>
+      <input
+        type="text"
+        [(ngModel)]="currentChanson.titreChanson"
+        name="titreChanson"
+        class="form-control"
+      />
+    </div>
+
+    <div class="col-sm-2 col-md-2 col-lg-2">
+      <label>Duree Chanson</label>
+      <input
+        type="number"
+        [(ngModel)]="currentChanson.duree"
+        name="duree"
+        class="form-control"
+      />
+    </div>
+
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Date sortie</label>
+      <input
+        type="date"
+        [ngModel]="currentChanson.dateSortie | date : 'yyyy-MM-dd'"
+        (ngModelChange)="currentChanson.dateSortie = $event"
+        name="dateSortie"
+        class="form-control"
+      />
+    </div>
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Album</label>
+      <select
+        class="form-control form-control-lg"
+        id="idAlb"
+        name="idAlb"
+        [(ngModel)]="updatedAlbId"
+      >
+        @for(alb of albums; track alb.idAlb){
+        <option [value]="alb.idAlb">{{ alb.nomAlb }}</option>
+        }
+      </select>
+    </div>
+    <div class="mt-2">
+      <button type="submit" (click)="updateChanson()" class="btn btn-success">
+        Modifer
+      </button>
+    </div>
+  </form>
+</div>

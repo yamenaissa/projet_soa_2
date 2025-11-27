@@ -1,0 +1,30 @@
+<form>
+  <div [hidden]="ajout">
+    <label>ID Album</label>
+    <input
+      type="text"
+      [(ngModel)]="album.idAlb"
+      name="idAlbum"
+      class="form-control w-25"
+    />
+  </div>
+  <div>
+    <label>Nom Album</label>
+    <input
+      type="text"
+      [(ngModel)]="album.nomAlb"
+      name="nomAlbum"
+      class="form-control"
+      placeholder="Entrez un nom de album..."
+    />
+  </div>
+  <div class="mt-2">
+    <button
+      type="submit"
+      [disabled]="!album.nomAlb"
+      class="btn btn-success"
+      (click)="saveAlbum()"
+    >{{ ajout ? 'Ajouter' : 'Mettre à jour' }}
+    </button>
+  </div>
+</form>
